@@ -1,4 +1,4 @@
-export const posts = [
+export const mockPosts = [
   {
     id: 1,
     author: {

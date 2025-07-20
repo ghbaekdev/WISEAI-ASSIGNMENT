@@ -1,3 +1,5 @@
-export default function Home() {
-  return <div>hihi</div>;
+import { PostsView } from '@/views/posts/ui/PostsView';
+
+export default function HomePage() {
+  return <PostsView />;
 }
