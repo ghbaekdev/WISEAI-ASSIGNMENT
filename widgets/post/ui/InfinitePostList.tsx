@@ -1,8 +1,8 @@
 'use client';
 
-import { useInfinitePosts } from '../api/useInfinitePosts';
 import { useIntersectionObserver } from '@/shared/model/useIntersectionObserver';
-import { PostCard } from './PostCard';
+import { PostCard } from '@/features/posts/ui/PostCard';
+import { useInfinitePosts } from '@/features/posts/api/useInfinitePosts';
 
 export const InfinitePostList = () => {
   const {
@@ -14,8 +14,6 @@ export const InfinitePostList = () => {
     isError,
     error,
   } = useInfinitePosts({ page: 1, limit: 10 });
-
-  console.log(data);
 
   const loadMoreRef = useIntersectionObserver({
     onIntersect: () => {

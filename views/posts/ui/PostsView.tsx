@@ -1,6 +1,6 @@
 'use client';
 
-import { InfinitePostList } from '@/features/posts/ui/InfinitePostList';
+import { InfinitePostList } from '@/widgets/post/ui/InfinitePostList';
 import { ComposeFab } from '@/features/posts/ui/ComposeFab';
 import React from 'react';
 
