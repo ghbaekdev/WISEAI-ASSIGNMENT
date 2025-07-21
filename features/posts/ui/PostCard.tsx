@@ -53,7 +53,7 @@ export const PostCard = ({ post }: PostCardProps) => {
       </div>
 
       {/* Content */}
-      <div className="mb-3">
+      <div className="mb-3 whitespace-pre-wrap">
         <p className="text-gray-900 leading-relaxed">{post.content}</p>
       </div>
 
