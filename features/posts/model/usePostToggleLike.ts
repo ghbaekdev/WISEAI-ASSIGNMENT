@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 type InfinitePostsQueryData = InfiniteQueryData<Post>;
 
-export const useToggleLike = () => {
+export const usePostToggleLike = () => {
   const queryClient = useQueryClient();
   const { errorToast } = useToast();
   const [isToggleLikeLoading, setIsToggleLikeLoading] = useState(false);

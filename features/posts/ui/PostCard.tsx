@@ -2,14 +2,14 @@ import { Post } from '@/entities/posts/types';
 import FallbackImage from '@/shared/ui/FallbackImage';
 import { Heart, MessageCircle, Repeat2 } from 'lucide-react';
 import { formatRelativeTime } from '../lib/formatRelativeTime';
-import { useToggleLike } from '../model/useToggleLike';
+import { usePostToggleLike } from '../model/usePostToggleLike';
 
 interface PostCardProps {
   post: Post;
 }
 
 export const PostCard = ({ post }: PostCardProps) => {
-  const { handleToggleLike, isToggleLikeLoading } = useToggleLike();
+  const { handleToggleLike, isToggleLikeLoading } = usePostToggleLike();
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-4 mb-4 shadow-sm hover:shadow-md transition-shadow">

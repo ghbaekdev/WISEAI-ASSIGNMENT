@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WiseAI Assignment - X(Twitter) Clone
 
-## Getting Started
+## 주요 기능
 
-First, run the development server:
+### 1. 게시물 관련 기능
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+#### 1-1. 게시물 리스트 (`/`)
+
+- 무한 스크롤로 게시물 목록 표시 (Intersection Observer API)
+- 각 게시물 카드에 포함:
+  - 작성자 정보 (프로필 이미지, 이름, 사용자명, 인증 뱃지)
+  - 게시물 내용 (텍스트, 이미지)
+  - 작성 시간 (상대적 시간: "3분 전", "1시간 전" 등)
+  - 상호작용 버튼 (좋아요, 리트윗, 댓글)
+  - 반응형 이미지 레이아웃 (단일/다중 이미지)
+
+#### 1-2. 게시물 작성 (`/compose`)
+
+- 게시물 작성 전용 페이지
+- 텍스트 입력 (280자 제한, 실시간 글자 수 카운터)
+- 이미지 첨부 (최대 4장, 미리보기, 삭제)
+- 작성 완료 시 피드에 새 게시물 반영
+
+### 2. 상호작용 기능
+
+#### 2-1. 좋아요 시스템
+
+- 게시물별 좋아요 버튼 (하트 아이콘)
+- 클릭 시 애니메이션 효과 및 카운트 증가/감소
+- 낙관적 업데이트(Optimistic Update)로 즉시 UI 반영
+- 로딩 중 중복 클릭 방지
+
+---
+
+## 구현 체크리스트 ✅
+
+- [x] 무한 스크롤 게시물 리스트
+- [x] 게시물 카드(작성자, 내용, 이미지, 시간, 상호작용)
+- [x] 상대적 시간 포맷
+- [x] 게시물 작성(텍스트, 이미지, 글자수 카운트)
+- [x] 이미지 미리보기/삭제
+- [x] 작성 후 피드 반영
+- [x] 좋아요 버튼 및 낙관적 업데이트
+
+---
+
+## FSD (Feature-Sliced Design) 아키텍처 적용
+
+### 폴더 구조 예시
+
+```
+src/
+├── app/          # 앱 초기화 (Next.js App Router)
+├── views/        # 페이지 레벨 컴포넌트
+├── widgets/      # 페이지의 특정 영역을 구성하는 UI 단위.
+├── features/     # 기능 단위 모듈
+│   └── posts/    # 게시물 관련 기능
+│       ├── api/      # API 호출
+│       ├── lib/      # 유틸리티
+│       ├── model/    # 비즈니스 로직
+│       └── ui/       # UI 컴포넌트
+├── entities/     # 도메인 엔티티
+│   └── posts/    # 게시물 엔티티
+│       ├── api/      # 엔티티 API
+│       └── types/    # 타입 정의
+└── shared/       # 공통 유틸리티
+    ├── config/   # 설정
+    ├── interface # 공통 인터페이스
+    ├── lib       # 공통 유틸리티
+    ├── ui/       # 공통 UI 컴포넌트
+    └── model/    # 공통 훅
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 설계 포인트
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 각 기능을 독립적인 모듈로 관리, 명확한 책임과 의존성 방향
+- posts 기능을 api/lib/model/ui로 세분화, 재사용성 강화
+- 공통 컴포넌트와 유틸리티를 shared에 배치
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 기술 스택
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework**: Next.js (App Router)
+- **상태 관리**: TanStack Query (React Query)
+- **스타일링**: Tailwind CSS
+- **아이콘**: Lucide React
+- **폼 관리**: React Hook Form + Zod
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 주요 기술적 포인트
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Optimistic Updates**: 좋아요 등 상호작용의 즉각적 UI 반영 (TanStack Query 캐시 조작)
+- **무한 스크롤**: Intersection Observer API 활용, 효율적 데이터 페이징
+- **이미지 처리**: 반응형 이미지, 미리보기, 다중 업로드
+- **타입 안전성**: TypeScript + Zod로 런타임 타입 검증
